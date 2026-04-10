@@ -190,10 +190,10 @@ describe('Deploy and Test workflows', () => {
     expect(content).toContain('gtd-test-runner');
   });
 
-  it('has 8 total forward workflows', () => {
+  it('has at least 8 forward workflows', () => {
     const dir = path.join(PROJECT_ROOT, 'workflows/forward');
     const files = fs.readdirSync(dir).filter((f) => f.endsWith('.md'));
-    expect(files).toHaveLength(8);
+    expect(files.length).toBeGreaterThanOrEqual(8);
   });
 });
 

@@ -23,6 +23,8 @@ Incrementally update generated documents based on code changes.
 - `--since <commit>` — Compare against specific commit (default: last generation commit)
 - `--doc <type>` — Update only a specific document type
 
-## Status
-This command will be fully implemented in Phase 13 (Incremental Updates).
+## Process
+
+Uses `gtd-tools.cjs` for diff analysis and state management.
+Full implementation in Phase 13 (Incremental Updates).
 For now, use `/gtd-create-<type> --force` to regenerate a document.

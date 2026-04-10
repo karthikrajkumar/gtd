@@ -15,6 +15,8 @@ Show code changes and their impact on documents.
 /gtd-diff [--doc <type>] [--since <commit>]
 ```
 
-## Status
-This command will be fully implemented in Phase 13 (Incremental Updates).
+## Process
+
+Uses `gtd-tools.cjs` for state and analysis cache comparison.
+Full implementation in Phase 13 (Incremental Updates).
 For now, use `git diff --stat` to see what changed.
