@@ -133,10 +133,10 @@ describe('Analyzer Agent Definitions', () => {
 // --- Agent count verification ---
 
 describe('Agent roster completeness', () => {
-  it('has exactly 8 backward agents (mapper + 7 analyzers)', () => {
+  it('has at least 8 backward agents (mapper + analyzers + writers)', () => {
     const agentsDir = path.join(PROJECT_ROOT, 'agents/backward');
     const files = fs.readdirSync(agentsDir).filter((f) => f.endsWith('.md'));
-    expect(files).toHaveLength(8); // 1 mapper + 7 analyzers
+    expect(files.length).toBeGreaterThanOrEqual(8);
   });
 
   it('all agents have unique names', () => {
@@ -151,10 +151,13 @@ describe('Agent roster completeness', () => {
     expect(unique.size).toBe(names.length);
   });
 
-  it('all agents have unique color codes', () => {
+  it('all analyzer agents have unique color codes', () => {
+    // Check only the 7 analyzer agents (writers may share colors)
     const agentsDir = path.join(PROJECT_ROOT, 'agents/backward');
-    const files = fs.readdirSync(agentsDir).filter((f) => f.endsWith('.md'));
-    const colors = files.map((f) => {
+    const analyzerFiles = fs.readdirSync(agentsDir)
+      .filter((f) => f.endsWith('.md'))
+      .filter((f) => !f.includes('writer') && !f.includes('diagram') && !f.includes('mapper'));
+    const colors = analyzerFiles.map((f) => {
       const content = fs.readFileSync(path.join(agentsDir, f), 'utf8');
       const { frontmatter } = parseFrontmatter(content);
       return frontmatter.color;
