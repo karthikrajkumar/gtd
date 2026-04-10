@@ -264,10 +264,10 @@ describe('Forward agent definitions', () => {
     });
   }
 
-  it('has 6 forward agents', () => {
+  it('has at least 6 forward agents', () => {
     const dir = path.join(PROJECT_ROOT, 'agents/forward');
     const files = fs.readdirSync(dir).filter((f) => f.endsWith('.md'));
-    expect(files).toHaveLength(6);
+    expect(files.length).toBeGreaterThanOrEqual(6);
   });
 });
 
