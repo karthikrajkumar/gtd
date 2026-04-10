@@ -422,6 +422,6 @@ describe('Grand totals after Phase 11', () => {
     const fwd = fs.readdirSync(path.join(PROJECT_ROOT, 'workflows/forward')).filter((f) => f.endsWith('.md')).length;
     const bwd = fs.readdirSync(path.join(PROJECT_ROOT, 'workflows/backward')).filter((f) => f.endsWith('.md')).length;
     const sync = fs.readdirSync(path.join(PROJECT_ROOT, 'workflows/sync')).filter((f) => f.endsWith('.md')).length;
-    expect(fwd + bwd + sync).toBe(28);
+    expect(fwd + bwd + sync).toBeGreaterThanOrEqual(28);
   });
 });

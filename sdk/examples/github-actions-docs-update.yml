@@ -1,0 +1,60 @@
+# GitHub Actions: Auto-update technical docs on push to main
+# Uses GTD SDK for headless document generation
+
+name: Update Technical Docs
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.planning/**'
+      - '*.md'
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Need full history for diff
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install GTD SDK
+        run: npm install get-things-done-sdk
+
+      - name: Check and update docs
+        run: |
+          node -e "
+          const { GTD } = require('get-things-done-sdk');
+          const gtd = new GTD({
+            projectDir: process.cwd(),
+            autoMode: true,
+            format: 'standard',
+          });
+          (async () => {
+            const status = await gtd.checkStaleness();
+            if (status.staleDocuments.length === 0) {
+              console.log('All documents are current.');
+              return;
+            }
+            console.log('Stale:', status.staleDocuments.map(d => d.type).join(', '));
+            const results = await gtd.updateAll();
+            for (const r of results) {
+              console.log(r.success ? '✓' : '✗', r.documentType, 'v' + r.version);
+            }
+          })();
+          "
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit updated docs
+        run: |
+          git config user.name "GTD Bot"
+          git config user.email "gtd@ci"
+          git add .planning/
+          git diff --cached --quiet || git commit -m "docs: auto-update technical documentation"
+          git push

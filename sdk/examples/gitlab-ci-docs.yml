@@ -1,0 +1,28 @@
+# GitLab CI: Auto-update technical docs
+# Uses GTD SDK for headless document generation
+
+stages:
+  - docs
+
+update-docs:
+  stage: docs
+  image: node:20-alpine
+  only:
+    - main
+  except:
+    changes:
+      - ".planning/**"
+  script:
+    - npm install get-things-done-sdk
+    - |
+      node -e "
+      const { GTD } = require('get-things-done-sdk');
+      const gtd = new GTD({ projectDir: '.', autoMode: true });
+      (async () => {
+        const s = await gtd.checkStaleness();
+        if (s.staleDocuments.length > 0) await gtd.updateAll();
+      })();
+      "
+    - git add .planning/ && git diff --cached --quiet || git commit -m "docs: auto-update" && git push
+  variables:
+    ANTHROPIC_API_KEY: $ANTHROPIC_API_KEY

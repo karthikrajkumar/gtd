@@ -1,0 +1,29 @@
+{
+  "name": "get-things-done-sdk",
+  "version": "0.0.1",
+  "description": "SDK for Get Things Done — programmatic access to the GTD bidirectional framework for CI/CD integration",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "get-things-done": ">=0.0.1"
+  }
+}

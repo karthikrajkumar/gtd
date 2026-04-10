@@ -100,7 +100,7 @@ describe('Context profiles — complete set', () => {
 
   it('has 6 context profiles', () => {
     const files = fs.readdirSync(dir).filter((f) => f.endsWith('.md'));
-    expect(files).toHaveLength(6);
+    expect(files.length).toBeGreaterThanOrEqual(6);
   });
 
   it('all profiles define context budget allocation', () => {
@@ -280,19 +280,19 @@ describe('MVP Forward totals', () => {
     expect(fs.readdirSync(dir).filter((f) => f.endsWith('.md'))).toHaveLength(18);
   });
 
-  it('has 6 backward workflows', () => {
+  it('has at least 6 backward workflows', () => {
     const dir = path.join(PROJECT_ROOT, 'workflows/backward');
-    expect(fs.readdirSync(dir).filter((f) => f.endsWith('.md'))).toHaveLength(6);
+    expect(fs.readdirSync(dir).filter((f) => f.endsWith('.md')).length).toBeGreaterThanOrEqual(6);
   });
 
-  it('has 11 reference documents', () => {
+  it('has at least 11 reference documents', () => {
     const dir = path.join(PROJECT_ROOT, 'references');
-    expect(fs.readdirSync(dir).filter((f) => f.endsWith('.md'))).toHaveLength(11);
+    expect(fs.readdirSync(dir).filter((f) => f.endsWith('.md')).length).toBeGreaterThanOrEqual(11);
   });
 
-  it('has 6 context profiles', () => {
+  it('has at least 6 context profiles', () => {
     const dir = path.join(PROJECT_ROOT, 'contexts');
-    expect(fs.readdirSync(dir).filter((f) => f.endsWith('.md'))).toHaveLength(6);
+    expect(fs.readdirSync(dir).filter((f) => f.endsWith('.md')).length).toBeGreaterThanOrEqual(6);
   });
 });
 

@@ -43,7 +43,9 @@ const COMMANDS = {
   roadmap: () => require('../lib/roadmap.cjs'),
   deploy: () => require('../lib/deploy.cjs'),
   drift: () => require('../lib/drift-engine.cjs'),
+  'diff-engine': () => require('../lib/diff-engine.cjs'),
   test: () => require('../lib/test-runner.cjs'),
+  security: () => require('../lib/security.cjs'),
   version: () => {
     const pkg = require('../package.json');
     process.stdout.write(pkg.version);
