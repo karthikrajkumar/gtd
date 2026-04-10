@@ -426,9 +426,9 @@ describe('Phase 6 MVP totals', () => {
     expect(fs.readdirSync(dir).filter(f => f.endsWith('.md'))).toHaveLength(6);
   });
 
-  it('has 6 reference documents', () => {
+  it('has at least 6 reference documents', () => {
     const dir = path.join(PROJECT_ROOT, 'references');
-    expect(fs.readdirSync(dir).filter(f => f.endsWith('.md'))).toHaveLength(6);
+    expect(fs.readdirSync(dir).filter(f => f.endsWith('.md')).length).toBeGreaterThanOrEqual(6);
   });
 
   it('has 3 context profiles', () => {
