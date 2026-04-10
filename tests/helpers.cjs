@@ -48,10 +48,14 @@ function createTempPlanningDir() {
 
 /**
  * Create a mock git commit hash.
+ * Always starts with a letter to avoid YAML numeric parsing issues.
  * @returns {string} 7-character hex string
  */
 function mockGitCommit() {
-  return Math.random().toString(16).slice(2, 9);
+  const hex = Math.random().toString(16).slice(2, 8);
+  // Ensure it starts with a letter (a-f) so YAML doesn't parse it as a number
+  const prefix = 'abcdef'[Math.floor(Math.random() * 6)];
+  return prefix + hex;
 }
 
 /**
