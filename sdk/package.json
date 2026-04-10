@@ -1,6 +1,6 @@
 {
-  "name": "get-things-done-sdk",
-  "version": "0.0.1",
+  "name": "@karthikrajkumar.kannan/get-things-done-sdk",
+  "version": "1.0.0",
   "description": "SDK for Get Things Done — programmatic access to the GTD bidirectional framework for CI/CD integration",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,6 +24,10 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "get-things-done": ">=0.0.1"
+    "@karthikrajkumar.kannan/get-things-done": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.2"
   }
 }

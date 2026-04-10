@@ -29,6 +29,7 @@ import type {
   DriftResult,
   AuditResult,
   PipelineStatus,
+  DocumentStatus,
   EventHandler,
   GTDEvent,
 } from './types.js';

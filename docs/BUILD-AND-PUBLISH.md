@@ -260,14 +260,20 @@ The SDK is a separate TypeScript package in `sdk/`.
 ```bash
 cd sdk
 
-# Install SDK-specific dependencies (if any)
+# Install SDK dependencies (TypeScript + Node type definitions)
 npm install
 
-# Compile TypeScript
+# Compile TypeScript to JavaScript
 npx tsc
 
 # Output goes to sdk/dist/
+# Should produce: index.js, index.d.ts, types.js, types.d.ts, gtd-tools.js, gtd-tools.d.ts
+ls dist/
 ```
+
+**Required SDK devDependencies** (already in `sdk/package.json`):
+- `typescript` — TypeScript compiler
+- `@types/node` — Node.js type definitions
 
 The compiled SDK can be published separately as `get-things-done-sdk`.
 

@@ -51,9 +51,13 @@ export class GtdTools {
     const globalPath = join(homedir, '.claude', 'get-things-done', 'bin', 'gtd-tools.cjs');
     if (existsSync(globalPath)) return globalPath;
 
-    // Fallback to package-relative path
-    const packagePath = resolve(__dirname, '..', '..', 'bin', 'gtd-tools.cjs');
+    // Fallback to package-relative path (resolve from project dir)
+    const packagePath = resolve(this.projectDir, 'node_modules', 'get-things-done', 'bin', 'gtd-tools.cjs');
     if (existsSync(packagePath)) return packagePath;
+
+    // Last resort: try relative to cwd
+    const cwdPath = resolve(process.cwd(), 'bin', 'gtd-tools.cjs');
+    if (existsSync(cwdPath)) return cwdPath;
 
     throw new Error('gtd-tools.cjs not found. Install GTD first: npx get-things-done@latest');
   }
