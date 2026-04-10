@@ -1,7 +1,7 @@
 {
   "name": "get-things-done",
-  "version": "0.0.1",
-  "description": "Bidirectional spec-driven agentic framework — Forward (idea to code to deploy), Backward (code to docs), Sync (drift detection and reconciliation)",
+  "version": "1.0.0",
+  "description": "Bidirectional spec-driven agentic framework — Forward (idea to code to deploy), Backward (code to docs), Sync (drift detection and reconciliation). The first framework that goes both ways.",
   "keywords": [
     "ai",
     "agentic",
@@ -9,10 +9,17 @@
     "documentation",
     "code-generation",
     "claude",
+    "claude-code",
     "llm",
     "technical-design",
     "reverse-engineering",
-    "drift-detection"
+    "drift-detection",
+    "bidirectional",
+    "gemini",
+    "copilot",
+    "cursor",
+    "windsurf",
+    "codex"
   ],
   "author": "GTD Contributors",
   "license": "MIT",

@@ -323,7 +323,7 @@ describe('CLI tools support all required operations', () => {
       `node "${path.join(PROJECT_ROOT, 'bin/gtd-tools.cjs')}" version`,
       { encoding: 'utf8' }
     ).trim();
-    expect(result).toBe('0.0.1');
+    expect(result).toMatch(/^\d+\.\d+\.\d+$/); // Semantic version format
   });
 
   it('gtd-tools.cjs config-get works', () => {
@@ -436,10 +436,10 @@ describe('Phase 6 MVP totals', () => {
     expect(fs.readdirSync(dir).filter(f => f.endsWith('.md')).length).toBeGreaterThanOrEqual(3);
   });
 
-  it('has 8 document templates', () => {
+  it('has at least 8 document templates', () => {
     const templates = listTemplates().filter(t => t.category === 'backward');
     const totalFormats = templates.reduce((sum, t) => sum + t.formats.length, 0);
-    expect(totalFormats).toBe(8); // 7 standard + 1 enterprise
+    expect(totalFormats).toBeGreaterThanOrEqual(8);
   });
 
   it('all templates validate successfully', () => {

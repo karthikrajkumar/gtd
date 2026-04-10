@@ -1,0 +1,46 @@
+# Development files
+tests/
+test-fixtures/
+docs/design/
+sdk/
+scripts/
+.github/
+.husky/
+
+# Config files
+vitest.config.ts
+eslint.config.js
+.prettierrc
+.prettierignore
+.nvmrc
+tsconfig.json
+
+# Generated
+coverage/
+dist/
+*.tmp
+*.tmp.*
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Planning (user-generated)
+.planning/
+
+# Package manager
+node_modules/
+package-lock.json
+
+# Docs (keep README, exclude design docs)
+docs/
+CONTRIBUTING.md
+CHANGELOG.md

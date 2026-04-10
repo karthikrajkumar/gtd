@@ -46,6 +46,7 @@ const COMMANDS = {
   'diff-engine': () => require('../lib/diff-engine.cjs'),
   test: () => require('../lib/test-runner.cjs'),
   security: () => require('../lib/security.cjs'),
+  scale: () => require('../lib/scale-adapter.cjs'),
   version: () => {
     const pkg = require('../package.json');
     process.stdout.write(pkg.version);
