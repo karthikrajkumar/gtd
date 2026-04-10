@@ -1,0 +1,69 @@
+{
+  "name": "get-things-done",
+  "version": "0.0.1",
+  "description": "Bidirectional spec-driven agentic framework — Forward (idea to code to deploy), Backward (code to docs), Sync (drift detection and reconciliation)",
+  "keywords": [
+    "ai",
+    "agentic",
+    "spec-driven",
+    "documentation",
+    "code-generation",
+    "claude",
+    "llm",
+    "technical-design",
+    "reverse-engineering",
+    "drift-detection"
+  ],
+  "author": "GTD Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/get-things-done/get-things-done"
+  },
+  "bin": {
+    "get-things-done": "./bin/install.js"
+  },
+  "main": "./bin/gtd-tools.cjs",
+  "files": [
+    "bin/",
+    "lib/",
+    "agents/",
+    "commands/",
+    "workflows/",
+    "references/",
+    "templates/",
+    "contexts/",
+    "hooks/"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "quality": "npm run lint && npm run format:check && npm run test",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "vitest": "^3.1.0",
+    "@vitest/coverage-v8": "^3.1.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.5.0",
+    "husky": "^9.1.0",
+    "lint-staged": "^15.4.0"
+  },
+  "lint-staged": {
+    "*.{js,cjs,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,json,yml,yaml}": [
+      "prettier --write"
+    ]
+  }
+}

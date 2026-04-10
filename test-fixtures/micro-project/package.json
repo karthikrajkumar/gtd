@@ -1,0 +1,16 @@
+{
+  "name": "micro-cli-tool",
+  "version": "1.0.0",
+  "description": "A simple CLI tool for greeting users",
+  "main": "src/index.js",
+  "bin": {
+    "greet": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"no tests yet\""
+  },
+  "dependencies": {
+    "chalk": "^5.3.0"
+  }
+}

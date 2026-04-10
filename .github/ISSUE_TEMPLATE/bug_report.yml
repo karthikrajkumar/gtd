@@ -1,0 +1,41 @@
+name: Bug Report
+description: Report a bug in Get Things Done
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the bug clearly.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should have happened?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: GTD Version
+      placeholder: "0.0.1"
+    validations:
+      required: true
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Runtime
+      options:
+        - Claude Code
+        - OpenCode
+        - Gemini CLI
+        - Codex
+        - Copilot
+        - Cursor
+        - Windsurf
+        - Augment
+        - Cline
+    validations:
+      required: true
