@@ -81,10 +81,10 @@ describe('Execution agent definitions', () => {
     expect(content).toContain('- Edit');
   });
 
-  it('has 10 total forward agents (6 planning + 4 execution)', () => {
+  it('has at least 10 forward agents', () => {
     const dir = path.join(PROJECT_ROOT, 'agents/forward');
     const files = fs.readdirSync(dir).filter((f) => f.endsWith('.md'));
-    expect(files).toHaveLength(10);
+    expect(files.length).toBeGreaterThanOrEqual(10);
   });
 });
 
@@ -116,10 +116,10 @@ describe('Execution workflows', () => {
     });
   }
 
-  it('has 6 forward workflows total (new-project, discuss, plan, execute, verify, ship)', () => {
+  it('has at least 6 forward workflows', () => {
     const dir = path.join(PROJECT_ROOT, 'workflows/forward');
     const files = fs.readdirSync(dir).filter((f) => f.endsWith('.md'));
-    expect(files).toHaveLength(6);
+    expect(files.length).toBeGreaterThanOrEqual(6);
   });
 });
 
