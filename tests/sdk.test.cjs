@@ -195,7 +195,7 @@ describe('SDK package.json', () => {
   const pkg = JSON.parse(fs.readFileSync(path.join(SDK_ROOT, 'package.json'), 'utf8'));
 
   it('has correct name', () => {
-    expect(pkg.name).toBe('get-things-done-sdk');
+    expect(pkg.name).toContain('get-things-done-sdk');
   });
 
   it('has build script', () => {

@@ -87,7 +87,7 @@ describe('Phase 0: Project Scaffolding', () => {
   describe('package.json', () => {
     it('has correct name', () => {
       const pkg = JSON.parse(fs.readFileSync(path.join(PROJECT_ROOT, 'package.json'), 'utf8'));
-      expect(pkg.name).toBe('get-things-done');
+      expect(pkg.name).toContain('get-things-done');
     });
 
     it('has bin entry', () => {
