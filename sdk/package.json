@@ -24,7 +24,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@karthikrajkumar.kannan/get-things-done": ">=1.0.0"
+    "@karthikrajkumar.kannan/get-things-done": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
