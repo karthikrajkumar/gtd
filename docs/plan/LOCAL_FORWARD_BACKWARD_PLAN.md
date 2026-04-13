@@ -218,6 +218,7 @@ Backward needs **read access** to the same tree.
 
 ## 14. How this relates to other plans
 
+- **[HOLISTIC_PLAN.md](./HOLISTIC_PLAN.md)** — If execution runs in a **cloud sandbox** instead of the laptop, use that loop; use **this** plan when the runtime stays **on the developer machine** (tunnel).  
 - **[VOLUME_USAGE.md](../VOLUME_USAGE.md)** — If the “laptop” is actually a **Docker** dev container, use a **volume** for the same project path the bridge passes to `--project`.  
 - **[GIT_UPGRADE_PLAN.md](./GIT_UPGRADE_PLAN.md)** — After local forward work, **push** to a remote with a dedicated git-publish flow.  
 - **[CUSTOM-INTEGRATION-GUIDE.md](../CUSTOM-INTEGRATION-GUIDE.md)** — SDK, MCP, and custom orchestrator patterns without tunnel.

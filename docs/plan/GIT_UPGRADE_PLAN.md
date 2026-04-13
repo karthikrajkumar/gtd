@@ -164,6 +164,7 @@ Existing workflows (`execute-phase`, `deploy-local`, `ship`, etc.) stay as they 
 
 ## 10. Related docs
 
+- [HOLISTIC_PLAN.md](./HOLISTIC_PLAN.md) — control plane, sandbox execution plane, GTD in workspace, Git handover.  
 - [VOLUME_USAGE.md](../VOLUME_USAGE.md) — Docker workspace before push.  
 - [LOCAL_FORWARD_BACKWARD_PLAN.md](./LOCAL_FORWARD_BACKWARD_PLAN.md) — cloud orchestrator + tunnel + local GTD.  
 - [CUSTOM-INTEGRATION-GUIDE.md](../CUSTOM-INTEGRATION-GUIDE.md) — orchestrators, MCP, SDK.  
