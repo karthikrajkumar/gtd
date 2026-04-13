@@ -41,6 +41,7 @@ npx @karthikrajkumar.kannan/get-things-done@latest
 - [MCP Server -- Use GTD as Tools from Any Language](#mcp-server----use-gtd-as-tools-from-any-language)
 - [Cloud-hosted code and local access](#cloud-hosted-code-and-local-access)
 - [Docker project workspace and volumes](#docker-project-workspace-and-volumes)
+- [Local forward and backward (plan)](#local-forward-and-backward-plan)
 - [SDK for CI/CD](#sdk-for-cicd)
 - [Architecture](#architecture)
 - [Document Formats](#document-formats)
@@ -645,7 +646,15 @@ For embedding GTD in your own app (SDK, MCP, prompts), see **[docs/CUSTOM-INTEGR
 
 When GTD or your orchestrator runs **inside Docker**, keep the repo on a **named volume** or **bind mount** so `git`, `gtd-tools`, and `.planning/` behave like a normal project tree. Object stores (e.g. MinIO) are better for **artifacts**, not as the primary editable workspace.
 
-**Step-by-step guide (junior-friendly):** [docs/VOLUME_USAGE.md](docs/VOLUME_USAGE.md)
+**Step-by-step guide:** [docs/VOLUME_USAGE.md](docs/VOLUME_USAGE.md)
+
+---
+
+## Local forward and backward plan
+
+If the **orchestrator** (and LiteLLM or similar) runs in the **cloud** while code and `.planning/` must stay on the **developer’s machine**, use a **tunnel** and a **local MCP bridge** so tool calls reach **`gtd-mcp-server`** with a local `--project`. Covers forward (writes), backward (reads + docs), security, and delivery phases.
+
+**Full plan:** [docs/plan/LOCAL_FORWARD_BACKWARD_PLAN.md](docs/plan/LOCAL_FORWARD_BACKWARD_PLAN.md)
 
 ---
 
