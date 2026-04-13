@@ -47,6 +47,7 @@ const COMMANDS = {
   test: () => require('../lib/test-runner.cjs'),
   security: () => require('../lib/security.cjs'),
   scale: () => require('../lib/scale-adapter.cjs'),
+  'git-handover': () => require('../lib/git-handover.cjs'),
   version: () => {
     const pkg = require('../package.json');
     process.stdout.write(pkg.version);

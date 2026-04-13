@@ -311,6 +311,33 @@ const GTD_TOOLS_DEFINITION = [
       properties: {},
     },
   },
+  {
+    name: 'gtd_handover',
+    description: 'Commit all workspace files and push to a GitHub remote. Three modes: A (push to main — greenfield), B (push to feature branch), C (push to feature branch — orchestrator creates PR). The remote URL must include authentication (e.g. x-access-token). Returns commit SHA, branch name, and files changed.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        mode: {
+          type: 'string',
+          enum: ['A', 'B', 'C'],
+          description: 'A = push to main (new repo), B = push to feature branch, C = push to feature branch (PR-ready)',
+        },
+        remote_url: {
+          type: 'string',
+          description: 'Authenticated Git remote URL (e.g. https://x-access-token:TOKEN@github.com/org/repo.git)',
+        },
+        branch: {
+          type: 'string',
+          description: 'Branch name. Default: main for mode A, gtd/<timestamp> for B/C.',
+        },
+        message: {
+          type: 'string',
+          description: 'Commit message. Default: "feat: GTD orchestrator output".',
+        },
+      },
+      required: ['mode', 'remote_url'],
+    },
+  },
 ];
 
 // --- Tool execution ---
@@ -449,6 +476,14 @@ async function executeTool(name, toolArgs) {
 
     case 'gtd_scale_detect': {
       const result = runGTD('scale', ['detect']);
+      return result.success ? result.data : `Error: ${result.error}`;
+    }
+
+    case 'gtd_handover': {
+      const a = [toolArgs.mode, toolArgs.remote_url];
+      if (toolArgs.branch) a.push('--branch', toolArgs.branch);
+      if (toolArgs.message) a.push('--message', toolArgs.message);
+      const result = runGTD('git-handover', a);
       return result.success ? result.data : `Error: ${result.error}`;
     }
 

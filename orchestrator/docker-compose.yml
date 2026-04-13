@@ -1,0 +1,21 @@
+# GTD Sandbox Service — Docker Compose
+#
+# Just the sandbox management API.
+# The orchestrator (Lovable, V0, custom) runs separately and calls our API.
+# Workspace sandboxes are created dynamically.
+
+services:
+  sandbox-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      WORKSPACE_IMAGE: gtd-workspace:latest
+      SANDBOX_CPU_LIMIT: 1
+      SANDBOX_MEMORY_LIMIT: 1g
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
