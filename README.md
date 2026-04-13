@@ -36,7 +36,7 @@ npx @karthikrajkumar.kannan/get-things-done@latest
 - [What Makes GTD Different](#what-makes-gtd-different)
 - [Installation](#installation)
 - [MCP Server -- Use GTD as Tools from Any Language](#mcp-server----use-gtd-as-tools-from-any-language)
-- [Local implementation (IDE, MCP, custom)](#local-implementation-ide-mcp-custom)
+- [Cloud-hosted code and local access](#cloud-hosted-code-and-local-access)
 - [SDK for CI/CD](#sdk-for-cicd)
 - [Architecture](#architecture)
 - [Document Formats](#document-formats)
@@ -583,38 +583,57 @@ You should see two JSON responses: server info + list of 19 tools.
 
 ---
 
-## Local implementation (IDE, MCP, custom)
+## Cloud-hosted code and local access
 
-GTD has **no hosted control plane**: install, agents, workflows, and the MCP server all run **on your machine**. Everything reads and writes under a single **project root** you choose.
+GTD runs against a **project directory on the machine** where you use slash commands, the MCP server (`--project`), or the SDK. If the source of truth lives in the cloud, use one of these patterns to get (and keep) that tree locally.
 
-### Project directory and `.planning/`
+### 1. Git
 
-- **IDE install** (`npx … --cursor --local`, etc.): the open workspace is the project; GTD writes planning state under **`.planning/`** at the repo root.
-- **MCP server**: pass **`--project /absolute/path/to/repo`** (recommended). The server runs `gtd-tools.cjs` with **`cwd` set to that directory**, so scans, drift checks, deploy detection, and config apply only there. If you omit `--project`, the server uses its **current working directory** when the client spawns it — set it explicitly in production configs so paths never drift.
+Code lives in **GitHub, GitLab, Azure DevOps, Bitbucket**, or another Git host. Locally: `git clone`, then `git pull` / `git fetch` for updates; use branches and remotes as usual.
 
-### What actually creates source code and documents
+**When to use:** Default for ongoing development when the repo is the artifact.
 
-| Integration | Who writes `src/`, `.planning/documents/`, etc.? |
-|-------------|------------------------------------------------|
-| **Slash commands in Cursor / Claude Code / …** | The AI runtime in the IDE follows GTD **workflows** and **agent** Markdown and uses normal **edit / write** tools against your workspace. |
-| **MCP from Claude Desktop, a script, or your own app** | The **MCP client** (usually an LLM with file or patch tools, or your code) must use tool **results as context**, then follow the same agent instructions to **apply changes on disk**. Most GTD MCP tools invoke `gtd-tools init <workflow>` to assemble **orchestration context**; they do not replace the model step that edits files. |
-| **SDK** (`@karthikrajkumar.kannan/get-things-done-sdk`) | Same idea: the SDK invokes local `gtd-tools`; your service still drives **when** and **how** an LLM or process writes files. |
+### 2. Remote development
 
-So: **yes, code and docs are always meant to land locally** in the project tree — but **something with permission to edit that tree** (the IDE agent, your orchestrator, or CI) must act on the context GTD returns.
+**VS Code Remote-SSH**, **JetBrains Gateway**, **GitHub Codespaces** (browser or VS Code), **cloud workstations**, etc. The canonical tree may stay in the cloud while your editor connects over SSH or a vendor tunnel; some setups also mirror files to disk.
 
-### MCP transport and scope
+**When to use:** You want a powerful or standardized environment without maintaining it on the laptop.
 
-- **stdio only** — the MCP server is a **local subprocess** (stdin/stdout JSON-RPC). No GTD HTTP API or cloud service is required.
-- **One server, nineteen tools** — all tools are exposed by `mcp/gtd-mcp-server.cjs`; configure one MCP entry pointing at that script plus `--project`.
+### 3. Download / export
 
-### Prerequisites
+**Release zips**, **CI artifacts**, **container images** with source, or **object storage** (S3, Azure Blob) with folder download.
 
-- **Node.js 20+** on the machine where GTD or the MCP server runs.
-- For meaningful forward/backward runs, the project path should be a real checkout (Git optional but recommended for drift and history-related features).
+**When to use:** One-off copies, releases, or generated drops rather than daily edit loops.
 
-### Custom chat or internal tools
+### 4. Sync clients
 
-For React/Monaco, a proprietary orchestrator, or wiring MCP into your backend, see **[docs/CUSTOM-INTEGRATION-GUIDE.md](docs/CUSTOM-INTEGRATION-GUIDE.md)** — it covers SDK, prompt library, and MCP patterns end to end.
+Cloud folders synced to a local directory (Dropbox-style). Possible for files; **risky for active Git repos** (conflicts, corrupted `.git`) unless the team standardizes carefully.
+
+**When to use:** Non-Git assets or small teams with clear rules; usually prefer Git instead.
+
+### 5. Private network access
+
+Source on a **VM or file share** in a VPC: **VPN**, **ExpressRoute** / private link, **bastion + scp/rsync**, or **SMB/NFS mounts** so your machine sees the path.
+
+**When to use:** Enterprise code that never leaves a private boundary except over approved network paths.
+
+### 6. API or internal portal
+
+Internal “download project” APIs, **package registries** (npm, PyPI, NuGet, Artifactory), or portals that ship **libraries / SDKs** rather than a full app repo.
+
+**When to use:** Consuming versioned packages; partial source compared to a full monorepo clone.
+
+### Summary
+
+| Need | Typical approach |
+|------|------------------|
+| Full project, day-to-day | **Git** clone + pull/push |
+| Edit on a managed remote machine | **Remote dev** / cloud IDE |
+| Snapshot or release | **Download** / artifact / image |
+| Code only inside corporate cloud | **VPN** + Git or **rsync/SSH** |
+| Consume binaries or APIs | **Registry** / internal **API** |
+
+For embedding GTD in your own app (SDK, MCP, prompts), see **[docs/CUSTOM-INTEGRATION-GUIDE.md](docs/CUSTOM-INTEGRATION-GUIDE.md)**.
 
 ---
 
