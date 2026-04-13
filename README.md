@@ -24,6 +24,9 @@ npx @karthikrajkumar.kannan/get-things-done@latest
 
 **Also available as an MCP server** -- use GTD tools from Python, TypeScript, Go, Rust, or any language.
 
+**Home page:** [https://github.com/karthikrajkumar/gtd](https://github.com/karthikrajkumar/gtd)  
+**Repository:** [https://github.com/karthikrajkumar/gtd](https://github.com/karthikrajkumar/gtd)
+
 </div>
 
 ---
