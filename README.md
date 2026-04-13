@@ -40,6 +40,7 @@ npx @karthikrajkumar.kannan/get-things-done@latest
 - [Installation](#installation)
 - [MCP Server -- Use GTD as Tools from Any Language](#mcp-server----use-gtd-as-tools-from-any-language)
 - [Cloud-hosted code and local access](#cloud-hosted-code-and-local-access)
+- [Docker project workspace and volumes](#docker-project-workspace-and-volumes)
 - [SDK for CI/CD](#sdk-for-cicd)
 - [Architecture](#architecture)
 - [Document Formats](#document-formats)
@@ -637,6 +638,14 @@ Internal “download project” APIs, **package registries** (npm, PyPI, NuGet, 
 | Consume binaries or APIs | **Registry** / internal **API** |
 
 For embedding GTD in your own app (SDK, MCP, prompts), see **[docs/CUSTOM-INTEGRATION-GUIDE.md](docs/CUSTOM-INTEGRATION-GUIDE.md)**.
+
+---
+
+## Docker project workspace and volumes
+
+When GTD or your orchestrator runs **inside Docker**, keep the repo on a **named volume** or **bind mount** so `git`, `gtd-tools`, and `.planning/` behave like a normal project tree. Object stores (e.g. MinIO) are better for **artifacts**, not as the primary editable workspace.
+
+**Step-by-step guide (junior-friendly):** [docs/VOLUME_USAGE.md](docs/VOLUME_USAGE.md)
 
 ---
 
