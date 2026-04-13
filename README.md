@@ -36,6 +36,7 @@ npx @karthikrajkumar.kannan/get-things-done@latest
 - [What Makes GTD Different](#what-makes-gtd-different)
 - [Installation](#installation)
 - [MCP Server -- Use GTD as Tools from Any Language](#mcp-server----use-gtd-as-tools-from-any-language)
+- [Local implementation (IDE, MCP, custom)](#local-implementation-ide-mcp-custom)
 - [SDK for CI/CD](#sdk-for-cicd)
 - [Architecture](#architecture)
 - [Document Formats](#document-formats)
@@ -579,6 +580,41 @@ echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":
 ```
 
 You should see two JSON responses: server info + list of 19 tools.
+
+---
+
+## Local implementation (IDE, MCP, custom)
+
+GTD has **no hosted control plane**: install, agents, workflows, and the MCP server all run **on your machine**. Everything reads and writes under a single **project root** you choose.
+
+### Project directory and `.planning/`
+
+- **IDE install** (`npx … --cursor --local`, etc.): the open workspace is the project; GTD writes planning state under **`.planning/`** at the repo root.
+- **MCP server**: pass **`--project /absolute/path/to/repo`** (recommended). The server runs `gtd-tools.cjs` with **`cwd` set to that directory**, so scans, drift checks, deploy detection, and config apply only there. If you omit `--project`, the server uses its **current working directory** when the client spawns it — set it explicitly in production configs so paths never drift.
+
+### What actually creates source code and documents
+
+| Integration | Who writes `src/`, `.planning/documents/`, etc.? |
+|-------------|------------------------------------------------|
+| **Slash commands in Cursor / Claude Code / …** | The AI runtime in the IDE follows GTD **workflows** and **agent** Markdown and uses normal **edit / write** tools against your workspace. |
+| **MCP from Claude Desktop, a script, or your own app** | The **MCP client** (usually an LLM with file or patch tools, or your code) must use tool **results as context**, then follow the same agent instructions to **apply changes on disk**. Most GTD MCP tools invoke `gtd-tools init <workflow>` to assemble **orchestration context**; they do not replace the model step that edits files. |
+| **SDK** (`@karthikrajkumar.kannan/get-things-done-sdk`) | Same idea: the SDK invokes local `gtd-tools`; your service still drives **when** and **how** an LLM or process writes files. |
+
+So: **yes, code and docs are always meant to land locally** in the project tree — but **something with permission to edit that tree** (the IDE agent, your orchestrator, or CI) must act on the context GTD returns.
+
+### MCP transport and scope
+
+- **stdio only** — the MCP server is a **local subprocess** (stdin/stdout JSON-RPC). No GTD HTTP API or cloud service is required.
+- **One server, nineteen tools** — all tools are exposed by `mcp/gtd-mcp-server.cjs`; configure one MCP entry pointing at that script plus `--project`.
+
+### Prerequisites
+
+- **Node.js 20+** on the machine where GTD or the MCP server runs.
+- For meaningful forward/backward runs, the project path should be a real checkout (Git optional but recommended for drift and history-related features).
+
+### Custom chat or internal tools
+
+For React/Monaco, a proprietary orchestrator, or wiring MCP into your backend, see **[docs/CUSTOM-INTEGRATION-GUIDE.md](docs/CUSTOM-INTEGRATION-GUIDE.md)** — it covers SDK, prompt library, and MCP patterns end to end.
 
 ---
 
