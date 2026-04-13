@@ -310,6 +310,7 @@ Use REST API heavily for **repo create**, **branch protection queries**, **PR op
 
 | Doc | Role |
 |-----|------|
+| [phased_holistic_plan.md](./phased_holistic_plan.md) | **Phased delivery** with acceptance checklists and phase tracker (what to build, in order). |
 | [GIT_UPGRADE_PLAN.md](./GIT_UPGRADE_PLAN.md) | First-party `git prep` / `git publish` tooling inside GTD package (optional complement to platform handover). |
 | [LOCAL_FORWARD_BACKWARD_PLAN.md](./LOCAL_FORWARD_BACKWARD_PLAN.md) | When the **runtime** is the user’s laptop (tunnel + local MCP), not a cloud sandbox. |
 | [VOLUME_USAGE.md](../VOLUME_USAGE.md) | Docker volumes and bind mounts for `/workspace`. |
