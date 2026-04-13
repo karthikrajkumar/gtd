@@ -461,6 +461,31 @@ node bin/install.js --claude --global
 # "bin": { "get-things-done": "./bin/install.js" }
 ```
 
+### npm website says “This package does not have a README” (for one version)
+
+npm shows that message when the **published tarball** for that version has **no `README` file** the registry can attach (or the registry has not finished indexing it yet).
+
+**Common causes**
+
+1. **Registry / CDN delay** — Right after `npm publish`, the web UI can lag. Wait a few minutes, hard-refresh the package page, or check the CLI:  
+   `npm view @karthikrajkumar.kannan/get-things-done@<version> readme | head`  
+   If you see Markdown here, the README is stored; the site may still catch up.
+
+2. **Publish without `README.md` in the pack** — If you run `npm publish` from a **git** checkout, npm packs from the **git index** (committed + staged files). An **uncommitted** or **untracked** `README.md` can be **left out** of the tarball even though it exists on disk. **Fix:** `git add README.md && git commit` before publish, or always run `npm pack --dry-run` and confirm `README.md` appears under “Tarball Contents”.
+
+3. **Wrong directory** — Publishing from a folder that is not the package root (no `README.md` there).
+
+4. **Interrupted publish** — Rare; republish a **new patch version** (npm does not allow overwriting an existing version).
+
+**Before every publish**
+
+```bash
+npm pack --dry-run 2>&1 | grep -i readme
+# Expect a line like: npm notice 28.5kB README.md
+```
+
+This repo lists **`README.md` and `LICENSE` in `package.json` → `files`** so they are always part of the explicit allowlist together with `bin/`, `lib/`, etc.
+
 ---
 
 *End of Build and Publish Guide*
