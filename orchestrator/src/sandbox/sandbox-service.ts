@@ -10,11 +10,13 @@
  * and calls GTD tools directly on that endpoint.
  */
 
-/* eslint-disable @typescript-eslint/no-require-imports */
-// Dockerode types use `export =`, which has no default export.
-// Use a typed require-style workaround for ESM compatibility.
-import type DockerodeType from 'dockerode';
-const Dockerode: typeof DockerodeType = require('dockerode');
+import { createRequire } from 'node:module';
+import type { ContainerInfo } from 'dockerode';
+
+const require = createRequire(import.meta.url);
+/** dockerode is CJS `export =`; avoid default import so typings match @types/dockerode. */
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- runtime constructor from CommonJS package
+const Dockerode = require('dockerode') as new (options?: { socketPath?: string }) => import('dockerode');
 import { v4 as uuidv4 } from 'uuid';
 import type { Config } from '../config.js';
 
@@ -187,7 +189,7 @@ export class SandboxService {
       filters: { name: ['gtd-sandbox-'] },
     });
 
-    return containers.map((c: DockerodeType.ContainerInfo) => {
+    return containers.map((c: ContainerInfo) => {
       const name = c.Names[0]?.replace(/^\//, '') ?? '';
       const shortId = name.replace('gtd-sandbox-', '');
       const networkEntries = Object.values(c.NetworkSettings?.Networks ?? {}) as Array<
