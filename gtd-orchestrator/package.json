@@ -1,0 +1,13 @@
+{
+  "name": "@gtd/orchestrator-workspace",
+  "private": true,
+  "workspaces": ["server", "ui"],
+  "scripts": {
+    "dev": "concurrently --names \"SERVER,UI\" --prefix-colors \"cyan,magenta\" \"npm run dev --workspace=server\" \"npm run dev --workspace=ui\"",
+    "build": "npm run build --workspace=server && npm run build --workspace=ui",
+    "typecheck": "npm run typecheck --workspace=server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

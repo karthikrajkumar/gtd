@@ -145,6 +145,32 @@ export async function sandboxRoutes(
   });
 
   /**
+   * POST /sandboxes/:id/exec
+   *
+   * Execute a command inside a sandbox container.
+   * Used by the gtd-orchestrator for file browsing (find, cat).
+   *
+   * Body: { cmd: string[], timeoutMs?: number }
+   */
+  app.post('/sandboxes/:id/exec', async (req, reply) => {
+    const { id } = req.params as { id: string };
+    const { cmd, timeoutMs } = req.body as { cmd: string[]; timeoutMs?: number };
+
+    if (!Array.isArray(cmd) || cmd.length === 0) {
+      return reply.status(400).send({ error: 'cmd must be a non-empty array of strings' });
+    }
+
+    const sandbox = await sandboxService.get(id);
+    if (!sandbox) return reply.status(404).send({ error: 'Sandbox not found' });
+    if (sandbox.status !== 'running') {
+      return reply.status(409).send({ error: 'Sandbox is not running' });
+    }
+
+    const result = await sandboxService.exec(id, cmd, timeoutMs ?? 10_000);
+    return reply.send(result);
+  });
+
+  /**
    * DELETE /sandboxes/:id
    *
    * Destroy sandbox — stops container, removes volume and network.
