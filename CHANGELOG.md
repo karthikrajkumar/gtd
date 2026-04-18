@@ -5,6 +5,12 @@ All notable changes to Get Things Done (GTD) will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0] - 2026-04-12
+
+### Added
+
+- Documentation for GitHub Copilot: local install plus `setup-copilot-prompts.sh` from the repo ([raw script URL](https://raw.githubusercontent.com/karthikrajkumar/gtd/main/scripts/setup-copilot-prompts.sh)) so Copilot Chat can load `/gtd-*` prompts from `.github/prompts/`.
+
 ## [1.0.0] - 2026-04-10
 
 ### Added

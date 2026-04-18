@@ -22,7 +22,8 @@ DST_ROOT=".github/prompts"
 if [[ ! -d "$SRC_ROOT" ]]; then
   echo "error: $SRC_ROOT not found." >&2
   echo "       Run the GTD installer first:" >&2
-  echo "       npx @karthikrajkumar.kannan/get-things-done@latest --cursor --local" >&2
+  echo "       npx @karthikrajkumar.kannan/get-things-done@latest --copilot --local" >&2
+  echo "       (or --cursor --local — both install commands/gtd under .github/get-things-done)" >&2
   exit 1
 fi
 

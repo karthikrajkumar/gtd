@@ -315,6 +315,25 @@ npx @karthikrajkumar.kannan/get-things-done@latest --claude --global
 
 Auto-discovered by Claude Code. Type `/gtd-help` in any project.
 
+### GitHub Copilot Setup
+
+The npm package installs GTD command definitions under `.github/get-things-done/commands/gtd/`. GitHub Copilot Chat reads **prompt files** from `.github/prompts/*.prompt.md`, which the installer does not create. After a local Copilot install, mirror those commands into Copilot’s prompt folder with the setup script from this repository (the script is not shipped inside the npm tarball).
+
+**Script (browse or raw download):**
+
+- Source in repo: [scripts/setup-copilot-prompts.sh](https://github.com/karthikrajkumar/gtd/blob/main/scripts/setup-copilot-prompts.sh)
+- Raw URL (curl / save as `scripts/setup-copilot-prompts.sh`):  
+  `https://raw.githubusercontent.com/karthikrajkumar/gtd/main/scripts/setup-copilot-prompts.sh`
+
+```bash
+cd /path/to/your/project
+npx @karthikrajkumar.kannan/get-things-done@latest --copilot --local
+# Ensure scripts/setup-copilot-prompts.sh exists (copy from repo or curl the raw URL above), then:
+bash scripts/setup-copilot-prompts.sh
+```
+
+Then in VS Code: ensure **Chat: Prompt Files Locations** includes `.github/prompts`, reload the window, and in Copilot Chat type `/gtd-` to pick a command.
+
 ---
 
 ## MCP Server -- Use GTD as Tools from Any Language

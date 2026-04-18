@@ -11,6 +11,7 @@
 - [Detailed Installation](#detailed-installation)
   - [Installing in Cursor (Step-by-Step)](#installing-in-cursor-step-by-step)
   - [Installing in Claude Code](#installing-in-claude-code)
+  - [Installing in GitHub Copilot](#installing-in-github-copilot)
   - [Installing in Other Runtimes](#installing-in-other-runtimes)
 - [Your First Backward Pipeline (Code to Docs)](#your-first-backward-pipeline-code-to-docs)
 - [Your First Forward Pipeline (Idea to Code)](#your-first-forward-pipeline-idea-to-code)
@@ -234,6 +235,27 @@ Claude Code 2.1.88+ uses the **skills** format. GTD commands install as:
 - etc.
 
 Claude Code auto-discovers skills. Just type `/gtd-help` in any project.
+
+---
+
+## Installing in GitHub Copilot
+
+GTD’s Copilot installer writes command markdown under `.github/get-things-done/commands/gtd/`. Copilot Chat expects **prompt files** under `.github/prompts/*.prompt.md`. The npm package does not bundle the helper that links the two, so copy it from the Git repository and run it once per project after `--copilot --local`.
+
+**Script:**
+
+- Browse: [scripts/setup-copilot-prompts.sh](https://github.com/karthikrajkumar/gtd/blob/main/scripts/setup-copilot-prompts.sh)
+- Raw (for `curl` or “Save As”): `https://raw.githubusercontent.com/karthikrajkumar/gtd/main/scripts/setup-copilot-prompts.sh`
+
+```bash
+cd /path/to/your/project
+npx get-things-done@latest --copilot --local
+mkdir -p scripts
+curl -fsSL https://raw.githubusercontent.com/karthikrajkumar/gtd/main/scripts/setup-copilot-prompts.sh -o scripts/setup-copilot-prompts.sh
+bash scripts/setup-copilot-prompts.sh
+```
+
+Then enable prompt files for `.github/prompts` in VS Code settings, run **Developer: Reload Window**, and use `/gtd-help` (or `/gtd-` prefix) in Copilot Chat.
 
 ---
 
