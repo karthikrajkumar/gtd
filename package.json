@@ -1,6 +1,6 @@
 {
   "name": "@karthikrajkumar.kannan/get-things-done",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "Bidirectional spec-driven agentic framework — Forward (idea to code to deploy), Backward (code to docs), Sync (drift detection and reconciliation). The first framework that goes both ways.",
   "keywords": [
     "ai",

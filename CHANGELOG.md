@@ -5,6 +5,18 @@ All notable changes to Get Things Done (GTD) will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.0] - 2026-05-06
+
+### Changed
+
+- `/gtd-new-project` workflow rewritten to be conversational and engaging — phased questioning (dream → why → user → vibe → constraints), assumptions mode for brownfield, confirmation gate before research, research highlights presented interactively, roadmap as narrative
+- `references/questioning.md` overhauled — collaborator tone instead of intake-form style, adaptive depth per response pattern, assumptions-first mode for existing codebases
+
+### Added
+
+- `docs/COMPETITIVE-ANALYSIS.md` — deep comparative study vs GSD (58.7k stars) and BMAD (46k stars), full gap analysis, and build plan for 23 new commands, 11 new agents, and 16 new workflows across 3 milestones
+- GitHub Copilot setup script error message now mentions `--copilot --local` (previously only said `--cursor --local`)
+
 ## [1.12.0] - 2026-04-12
 
 ### Added
