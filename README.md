@@ -11,8 +11,8 @@
 [![npm version](https://img.shields.io/npm/v/@karthikrajkumar.kannan/get-things-done?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/@karthikrajkumar.kannan/get-things-done)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-1030%20passing-brightgreen?style=for-the-badge)](tests/)
-[![Agents](https://img.shields.io/badge/agents-33-purple?style=for-the-badge)]()
-[![Commands](https://img.shields.io/badge/commands-40-orange?style=for-the-badge)]()
+[![Agents](https://img.shields.io/badge/agents-37-purple?style=for-the-badge)]()
+[![Commands](https://img.shields.io/badge/commands-47-orange?style=for-the-badge)]()
 
 <br>
 
@@ -105,7 +105,16 @@ cursor .    # or claude, or your preferred tool
 /gtd-new-project             # Start from an idea
 /gtd-plan-phase 1            # Research + create execution plan
 /gtd-execute-phase 1         # Generate code with atomic commits
+/gtd-ship 1                  # Create PR from verified phase work
 /gtd-deploy-local            # Deploy and test locally
+
+# Quick work (skip the ceremony)
+/gtd-quick "add auth middleware"    # Ad-hoc task with GTD guarantees
+/gtd-fast "rename getUserId"        # Trivial task, zero planning, one commit
+
+# Session management (pause and resume across context windows)
+/gtd-pause                   # Save session → HANDOFF.json
+/gtd-resume                  # Restore session in a fresh window
 
 # Keep everything aligned (sync)
 /gtd-drift                   # Detect spec <-> code drift
@@ -179,7 +188,8 @@ Every document is **accuracy-verified** against your actual code before you see 
 
 ```
 /gtd-new-project "A REST API for managing invoices"
-  +-- Adaptive questioning (understands your vision)
+  +-- Conversational questioning (Dream → Why → User → Vibe → Constraints)
+  +-- Assumptions mode for brownfield projects
   +-- 4 parallel research agents (stack, features, architecture, pitfalls)
   +-- Requirements extraction (v1 must-have, v2 future, out of scope)
   +-- Phased roadmap generation
@@ -209,7 +219,18 @@ Every document is **accuracy-verified** against your actual code before you see 
 
 /gtd-ship --pr
   +-- Creates a PR with structured description linking to requirements
+
+/gtd-quick "add dark mode toggle"
+  +-- Same quality guarantees (atomic commits, verification)
+  +-- Optional flags: --discuss, --research, --validate, --full
+  +-- Lightweight plan (1-5 tasks), no phased pipeline overhead
+
+/gtd-fast "rename getUserId to fetchUserId"
+  +-- Zero ceremony — describes what you want, done in one commit
+  +-- No plan file, no research, immediate execution
 ```
+
+**Session management:** `/gtd-pause` serializes everything to `HANDOFF.json`. Start a fresh context window, run `/gtd-resume`, and continue exactly where you left off. No more context rot.
 
 **Autonomous mode:** `/gtd-autonomous 1 --to 5` runs phases 1 through 5 unattended.
 
@@ -254,6 +275,11 @@ No other framework does this. This is GTD's killer differentiator.
 | Forward (spec to code) | Yes | Yes | No | **Yes** |
 | Backward (code to docs) | No | No | Basic only | **7 document types** |
 | Bidirectional sync | No | No | No | **Yes (drift detection)** |
+| Session management (pause/resume) | Yes | No | No | **Yes (HANDOFF.json)** |
+| Quick/fast modes | Yes | No | No | **Yes (composable flags)** |
+| Ship & PR workflow | Yes | No | No | **Yes (auto-generated PR)** |
+| Security scanning | No | No | No | **Secrets + sensitive files** |
+| Document ingestion | No | No | No | **Files + URLs + manifest** |
 | Document accuracy verification | No | No | No | **Cross-checks against code** |
 | Local deploy + test | No | No | No | **Auto-detect + health check** |
 | Drift detection | No | No | No | **4 categories + severity** |
@@ -699,19 +725,20 @@ See `sdk/examples/` for GitHub Actions and GitLab CI templates.
 
 ## Architecture
 
-### 33 Specialized Agents
+### 37 Specialized Agents
 
 | Category | Count | Agents |
 |----------|-------|--------|
 | **Forward: Research** | 3 | project-researcher (x4), phase-researcher (x4), research-synthesizer |
-| **Forward: Planning** | 3 | roadmapper, planner, plan-checker |
-| **Forward: Execution** | 4 | executor, verifier, code-reviewer, debugger |
-| **Forward: Deploy/Test** | 2 | deployer, test-runner |
+| **Forward: Planning** | 4 | roadmapper, planner, plan-checker, quick-planner |
+| **Forward: Execution** | 5 | executor, fast-executor, verifier, code-reviewer, debugger |
+| **Forward: Deploy/Ship** | 3 | deployer, test-runner, pr-creator |
 | **Backward: Discovery** | 1 | codebase-mapper |
 | **Backward: Analysis** | 7 | architecture, api, patterns, data-flow, dependencies, security, performance |
 | **Backward: Writing** | 8 | tdd, hld, lld, capacity, sysdesign, api-docs, runbook writers + diagram generator |
 | **Backward: Verification** | 2 | accuracy-verifier, completeness-auditor |
 | **Sync** | 3 | drift-detector, reconciliation-planner, alignment-auditor |
+| **Utility** | 1 | session-manager |
 
 ### Fresh Context Per Agent
 
@@ -752,15 +779,17 @@ All state in `.planning/` as human-readable Markdown. Git-committable. Survives 
 
 ## Complete Command Reference
 
-### Backward (15) | Forward (16) | Sync (4) | Utility (5)
+### Backward (15) | Forward (18) | Sync (4) | Session (3) | Utility (7)
 
 **Backward:** `/gtd-scan` `/gtd-analyze` `/gtd-create-tdd` `/gtd-create-hld` `/gtd-create-lld` `/gtd-create-capacity` `/gtd-create-sysdesign` `/gtd-create-api-docs` `/gtd-create-runbook` `/gtd-create-all` `/gtd-verify-docs` `/gtd-review-docs` `/gtd-update-docs` `/gtd-diff` `/gtd-doc-status`
 
-**Forward:** `/gtd-new-project` `/gtd-discuss-phase` `/gtd-plan-phase` `/gtd-execute-phase` `/gtd-verify-work` `/gtd-deploy-local` `/gtd-test-phase` `/gtd-ship` `/gtd-next` `/gtd-autonomous` `/gtd-quick` `/gtd-fast` `/gtd-debug` `/gtd-code-review` `/gtd-add-phase` `/gtd-progress`
+**Forward:** `/gtd-new-project` `/gtd-discuss-phase` `/gtd-plan-phase` `/gtd-execute-phase` `/gtd-verify-work` `/gtd-deploy-local` `/gtd-test-phase` `/gtd-ship` `/gtd-next` `/gtd-autonomous` `/gtd-quick` `/gtd-fast` `/gtd-debug` `/gtd-code-review` `/gtd-add-phase` `/gtd-progress` `/gtd-new-milestone` `/gtd-complete-milestone`
 
 **Sync:** `/gtd-drift` `/gtd-reconcile` `/gtd-sync` `/gtd-audit`
 
-**Utility:** `/gtd-help` `/gtd-status` `/gtd-settings` `/gtd-health` `/gtd-map-codebase`
+**Session:** `/gtd-pause` `/gtd-resume` `/gtd-session-report`
+
+**Utility:** `/gtd-help` `/gtd-status` `/gtd-scan` `/gtd-ingest` `/gtd-settings` `/gtd-health` `/gtd-map-codebase`
 
 ---
 
@@ -792,6 +821,6 @@ MIT License. See [LICENSE](LICENSE).
 
 **Get Things Done.** Forward. Backward. In Sync.
 
-*33 agents. 40 commands. 19 MCP tools. 1,030 tests. One framework.*
+*37 agents. 47 commands. 19 MCP tools. 1,030 tests. One framework.*
 
 </div>

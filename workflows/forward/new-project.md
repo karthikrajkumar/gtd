@@ -8,6 +8,7 @@ The experience should feel like working with a sharp co-founder — not filling 
 @references/questioning.md
 @references/planning-config.md
 @references/agent-contracts.md
+@references/output-style.md
 </required_reading>
 
 <available_agent_types>
@@ -184,19 +185,30 @@ node "$GTD_TOOLS_PATH/gtd-tools.cjs" state update forward.status researched
 node "$GTD_TOOLS_PATH/gtd-tools.cjs" state update forward.current_milestone "v1.0"
 ```
 
-Display:
+Display (per references/output-style.md completion block):
 ```
-✓ Project initialized!
+╭─ GTD ─────────────────────────────────────────────────────╮
+│                                                            │
+│  ✓ Project initialized                                    │
+│                                                            │
+│  Project      {name}                                       │
+│  Vision       "{one-sentence from user's own words}"       │
+│  Stack        {detected or chosen tech}                    │
+│                                                            │
+│  Requirements                                              │
+│    v1          {v1_count} must-haves                        │
+│    v2          {v2_count} future                            │
+│    excluded    {excluded_count} out of scope                │
+│                                                            │
+│  Phases       {count} ({granularity} granularity)          │
+│  Research     {status}                                     │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
 
-  Project: {name}
-  Vision: {one-sentence from user's own words}
-  Requirements: {v1_count} must-haves, {v2_count} future, {excluded_count} out-of-scope
-  Phases: {count} ({granularity} granularity)
-  Research: {status}
-
-  Next: /gtd-discuss-phase 1 — shape how Phase 1 gets built (recommended)
-        /gtd-plan-phase 1   — skip discussion, go straight to planning
-        /gtd-quick           — got a small task? do it now without full ceremony
+  Next:
+    → /gtd-discuss-phase 1   shape how Phase 1 gets built (recommended)
+    → /gtd-plan-phase 1      skip discussion, go to planning
+    → /gtd-quick             quick ad-hoc task
 ```
 </step>
 

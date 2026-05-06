@@ -1,24 +1,29 @@
 ---
 name: gtd-ship
-description: "Create PR or push code after phase verification"
+description: "Create PR from verified phase work — auto-generated title and body"
 tools:
   - Read
   - Write
-  - Edit
   - Bash
   - Grep
   - Glob
-  - Task
 ---
 
 # /gtd-ship
 
-Create PR or push code after phase verification.
+Create a pull request from verified phase work. Generates title from phase name and body from execution summaries.
+
+## Required Reading
+@references/output-style.md
 
 ## Usage
 ```
-/gtd-ship [args]
+/gtd-ship [N] [--draft]
 ```
+
+**Arguments:**
+- `N` — Phase number (defaults to current phase from STATE.md)
+- `--draft` — Create as draft PR
 
 ## Process
 

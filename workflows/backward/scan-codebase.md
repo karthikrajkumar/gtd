@@ -5,6 +5,7 @@ Map the project structure for subsequent analysis and document generation. This 
 <required_reading>
 @references/framework-signatures.md
 @references/language-analyzers.md
+@references/output-style.md
 </required_reading>
 
 <available_agent_types>
@@ -85,19 +86,26 @@ node "$GTD_TOOLS_PATH/gtd-tools.cjs" state update backward.last_scan_commit "$(g
 </step>
 
 <step name="report">
-Read the generated CODEBASE-MAP.md and present a summary:
+Read the generated CODEBASE-MAP.md and present a summary (per references/output-style.md):
 
 ```
-✓ Codebase scanned successfully
+╭─ GTD ─────────────────────────────────────────────────────╮
+│                                                            │
+│  ✓ Codebase scanned                                      │
+│                                                            │
+│  Project       {name}                                      │
+│  Files         {count} indexed                             │
+│  Languages     {language list with percentages}            │
+│  Frameworks    {framework list}                            │
+│  Entry points  {count}                                     │
+│  Infra         {Docker, CI/CD, etc.}                       │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
 
-  Project: {name}
-  Files indexed: {count}
-  Languages: {language list with percentages}
-  Frameworks: {framework list}
-  Entry points: {count}
-  Infrastructure: {list}
-
-  Run /gtd-analyze for deep analysis, or /gtd-create-* to generate documents.
+  Next:
+    → /gtd-analyze       deep code analysis (7 dimensions)
+    → /gtd-create-tdd    generate Technical Design Document
+    → /gtd-create-all    generate all 7 documents
 ```
 </step>
 

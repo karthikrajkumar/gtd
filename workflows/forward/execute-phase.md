@@ -6,6 +6,7 @@ Execute all plans in a phase using wave-based parallel execution. Orchestrator s
 @references/agent-contracts.md
 @references/context-budget.md
 @references/gate-prompts.md
+@references/output-style.md
 </required_reading>
 
 <available_agent_types>
@@ -40,12 +41,14 @@ Group into execution waves using `groupIntoWaves()`.
 
 Display:
 ```
-Phase {N}: {name}
-  Plans: {count}
-  Waves: {wave_count}
-  Wave 1: {plan_names} (parallel)
-  Wave 2: {plan_names} (depends on wave 1)
-  ...
+  ◐ Executing Phase {N}: {name}
+
+    Wave 1 (parallel):
+      {plan_names joined with " │ "}
+
+    Wave 2 (depends on wave 1):
+      {plan_names joined with " │ "}
+    ...
 ```
 </step>
 
@@ -112,18 +115,22 @@ After verification:
 node "$GTD_TOOLS_PATH/gtd-tools.cjs" state update forward.status verified
 ```
 
-Display:
+Display (per reference/output-style.md completion block):
 ```
-✓ Phase {N} execution complete
+╭─ GTD ─────────────────────────────────────────────────────╮
+│                                                            │
+│  ✓ Phase {N} executed                                     │
+│                                                            │
+│  Plans        {count} ({parallel_count} parallel + {seq_count} sequential) │
+│  Commits      {commit_count} atomic commits                │
+│  Verification {pass_count}/{total_reqs} requirements met   │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
 
-  Plans executed: {count}
-  Tasks completed: {total}
-  Commits: {commit_count}
-  Verification: {pass_count}/{total_reqs} requirements verified
-
-  Next: /gtd-deploy-local (test locally)
-        /gtd-ship (create PR)
-        /gtd-next (auto-advance)
+  Next:
+    → /gtd-verify-work {N}   confirm it works as expected
+    → /gtd-ship {N}          create PR (skip verification)
+    → /gtd-next              auto-advance
 ```
 </step>
 

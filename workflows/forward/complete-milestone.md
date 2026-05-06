@@ -30,15 +30,21 @@ Optionally trigger backward pipeline: /gtd-create-all (generate fresh docs for t
 </step>
 
 <step name="report">
-Display:
+Display (per references/output-style.md):
 ```
-✓ Milestone {name} complete!
+╭─ GTD ─────────────────────────────────────────────────────╮
+│                                                            │
+│  ✓ Milestone {name} complete                              │
+│                                                            │
+│  Phases        {count} executed                            │
+│  Requirements  {covered}/{total} delivered                 │
+│  Commits       {total_commits}                             │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
 
-  Phases: {count}
-  Requirements: {covered}/{total}
-
-  Next: /gtd-new-milestone (start next milestone)
-        /gtd-create-all (generate documentation)
+  Next:
+    → /gtd-new-milestone   start next milestone
+    → /gtd-create-all      generate documentation for this milestone
 ```
 </step>
 

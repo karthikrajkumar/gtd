@@ -7,6 +7,7 @@ Pipeline: research (4 parallel) → plan → check → revise (up to 3x).
 @references/planning-config.md
 @references/agent-contracts.md
 @references/gate-prompts.md
+@references/output-style.md
 </required_reading>
 
 <available_agent_types>
@@ -84,16 +85,22 @@ node "$GTD_TOOLS_PATH/gtd-tools.cjs" state update forward.status planned
 node "$GTD_TOOLS_PATH/gtd-tools.cjs" state update forward.current_phase "$PHASE_NUMBER"
 ```
 
-Display:
+Display (per references/output-style.md completion block):
 ```
-✓ Phase {N} planned
+╭─ GTD ─────────────────────────────────────────────────────╮
+│                                                            │
+│  ✓ Phase {N} planned                                      │
+│                                                            │
+│  Plans         {count} execution plans                     │
+│  Tasks         {total_tasks} across {wave_count} waves     │
+│  Requirements  {covered}/{total} covered                   │
+│  Plan checker  PASS ✓                                      │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
 
-  Plans: {count}
-  Tasks: {total_tasks} across {wave_count} waves
-  Requirements covered: {covered}/{total}
-  Plan checker: PASS ✓
-
-  Next: /gtd-execute-phase {N}
+  Next:
+    → /gtd-execute-phase {N}   generate code from plans
+    → /gtd-discuss-phase {N}   revisit decisions first
 ```
 </step>
 

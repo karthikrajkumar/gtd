@@ -10,6 +10,9 @@ tools:
 
 Show the GTD pipeline status dashboard.
 
+## Required Reading
+@references/output-style.md
+
 ## Usage
 ```
 /gtd-status
@@ -24,34 +27,33 @@ ANALYSIS=$(node "$GTD_TOOLS_PATH/gtd-tools.cjs" analysis status)
 DOCS=$(node "$GTD_TOOLS_PATH/gtd-tools.cjs" doc list)
 ```
 
-2. Display formatted dashboard:
+2. Display formatted dashboard (per references/output-style.md):
 
 ```
-╔═══════════════════════════════════════════════╗
-║           GTD Pipeline Status                 ║
-╠═══════════════════════════════════════════════╣
-║ Project: {project name}                       ║
-║ Mode: {bidirectional|forward|backward}        ║
-╠═══════════════════════════════════════════════╣
-║ Forward Pipeline:  {status}                   ║
-║   Phase: {N} of {total}                       ║
-║   Milestone: {name}                           ║
-╠═══════════════════════════════════════════════╣
-║ Backward Pipeline: {status}                   ║
-║   Last Scan: {commit} ({date})                ║
-║   Analysis: {current}/{total} dimensions      ║
-╠═══════════════════════════════════════════════╣
-║ Documents:                                    ║
-║   ✓ TDD    v1.0  (current)                   ║
-║   ✓ HLD    v1.0  (current)                   ║
-║   ⚠ LLD    v1.0  (stale)                    ║
-║   - Capacity      (not generated)             ║
-║   ...                                         ║
-╠═══════════════════════════════════════════════╣
-║ Sync: {synced|drifted} ({N} drift items)      ║
-╠═══════════════════════════════════════════════╣
-║ Cost: ${total} ({tokens} tokens)              ║
-╚═══════════════════════════════════════════════╝
+╭─ GTD Pipeline ────────────────────────────────────────────╮
+│                                                            │
+│  FORWARD >>>  Milestone: {name}                            │
+│                                                            │
+│    P1      P2      P3      P4      P5      P6             │
+│   [✓]  → [✓]  → [◐]  → [ ○ ] → [ ○ ] → [ ○ ]           │
+│   {n1}    {n2}    {n3}    {n4}    {n5}    {n6}            │
+│                                                            │
+│  BACKWARD <<<                                              │
+│                                                            │
+│    TDD {s}  HLD {s}  LLD {s}  API {s}  Sys {s}  Run {s}  │
+│                                                            │
+│  SYNC <><>                                                 │
+│                                                            │
+│    Last check: {time} │ Drift: {N} items │ {synced|stale}  │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
+
+  Current: Phase {N} — {name} ({step in progress})
+
+  Next:
+    → {recommended command}   {description}
 ```
+
+Status symbols: ✓ = done, ◐ = in progress, ○ = pending, ⚠ = stale
 
 3. Suggest next action based on state.

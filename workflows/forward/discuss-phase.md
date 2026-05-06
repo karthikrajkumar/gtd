@@ -4,6 +4,7 @@ Capture user's implementation preferences and decisions for a specific phase bef
 
 <required_reading>
 @references/questioning.md
+@references/output-style.md
 </required_reading>
 
 <process>
@@ -75,14 +76,19 @@ mode: {guided|auto}
 </step>
 
 <step name="report">
-Display:
+Display (per references/output-style.md completion block):
 ```
-✓ Phase {N} discussion complete
+╭─ GTD ─────────────────────────────────────────────────────╮
+│                                                            │
+│  ✓ Phase {N} discussion complete                          │
+│                                                            │
+│  Decisions     {count} captured                            │
+│  Deferred      {count} open questions                      │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
 
-  Decisions captured: {count}
-  Open questions deferred: {count}
-  
-  Next: /gtd-plan-phase {N} (research + create execution plan)
+  Next:
+    → /gtd-plan-phase {N}   research + create execution plan
 ```
 </step>
 

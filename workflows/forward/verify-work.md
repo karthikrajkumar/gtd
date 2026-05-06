@@ -28,24 +28,37 @@ If config.workflow.require_review:
 </step>
 
 <step name="present_results">
-Display:
+Display (per references/output-style.md):
+
+If all pass:
 ```
-Phase {N} Verification Results:
+╭─ GTD ─────────────────────────────────────────────────────╮
+│                                                            │
+│  ✓ Phase {N} verified                                     │
+│                                                            │
+│  Requirements  {passed}/{total} met                        │
+│  Tests         {pass_count} passing, {fail_count} failing  │
+│  Regression    clean                                       │
+│  {#if has_review}                                          │
+│  Code Review   {critical}C {major}M {minor}m               │
+│  {/if}                                                     │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
 
-  Requirements: {passed}/{total} met ✓
-  Tests: {pass_count} passed, {fail_count} failed
-  Regression: {clean|issues_found}
-  
-  {#if has_review}
-  Code Review: {critical} critical, {major} major, {minor} minor
-  {/if}
+  Next:
+    → /gtd-deploy-local   test locally
+    → /gtd-ship {N}       create PR
+```
 
-  {#if all_pass}
-  ✓ Phase {N} verified — ready for /gtd-deploy-local or /gtd-ship
-  {/if}
-  {#if has_failures}
-  ⚠ {failure_count} issues need attention. Use /gtd-debug to investigate.
-  {/if}
+If failures:
+```
+  ✗ Phase {N} verification: {failure_count} issues
+
+    {REQ-ID}   {description} — {failure reason}
+    {REQ-ID}   {description} — {failure reason}
+
+  Next:
+    → /gtd-debug   auto-diagnose and fix
 ```
 </step>
 

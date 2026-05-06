@@ -121,23 +121,26 @@ Read verification report. Extract: verified count, inaccurate count, confidence 
 </step>
 
 <step name="present_for_review" if="!auto_mode">
-Display to user:
+Display to user (per references/output-style.md):
 
 ```
-📄 {Doc Type} draft generated
-
-  Sections: {count}
-  Word count: ~{estimate}
-  Verification: {score}% claims verified ({verified}/{total})
-  
-  {#if inaccurate > 0}
-  ⚠ {inaccurate} claims flagged — review sections: {flagged_sections}
-  {/if}
+╭─ GTD ─────────────────────────────────────────────────────╮
+│                                                            │
+│  ◐ {Doc Type} draft ready for review                      │
+│                                                            │
+│  Sections      {count}                                     │
+│  Word count    ~{estimate}                                 │
+│  Verification  {score}% claims verified ({verified}/{total})│
+│  {#if inaccurate > 0}                                      │
+│  ⚠ Flagged     {inaccurate} claims in: {flagged_sections} │
+│  {/if}                                                     │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
 
   Options:
-  - "approved" → Finalize document
-  - Provide feedback → Revise and re-present
-  - "cancel" → Save draft, exit
+    → "approved"     finalize document
+    → feedback       revise and re-present
+    → "cancel"       save draft, exit
 ```
 
 Wait for user response.
@@ -161,14 +164,21 @@ Update STATE.md:
 node "$GTD_TOOLS_PATH/gtd-tools.cjs" state update backward.status finalized
 ```
 
-Display:
+Display (per references/output-style.md):
 ```
-✓ {Doc Type} v{version} finalized
+╭─ GTD ─────────────────────────────────────────────────────╮
+│                                                            │
+│  ✓ {Doc Type} v{version} finalized                        │
+│                                                            │
+│  Location      {docs_root}/documents/{DOC_FILENAME}.md     │
+│  Verification  {score}% verified                           │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
 
-  Saved to: {docs_root}/documents/{DOC_FILENAME}.md
-  Verification: {score}% verified
-  
-  Generate more documents with /gtd-create-<type> or /gtd-create-all.
+  Next:
+    → /gtd-create-{next_type}   generate next document
+    → /gtd-create-all           generate remaining documents
+    → /gtd-verify-docs          run accuracy check
 ```
 </step>
 

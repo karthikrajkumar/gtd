@@ -53,17 +53,35 @@ Steps:
 </step>
 
 <step name="report">
-Display:
+Display (per references/output-style.md):
+
+If fix succeeded:
 ```
-Debug complete
+╭─ GTD ─────────────────────────────────────────────────────╮
+│                                                            │
+│  ✓ Debug complete                                         │
+│                                                            │
+│  Root cause    {description}                               │
+│  Fix           {files_changed}                             │
+│  Commit        {short_sha}                                 │
+│  Verified      ✓ error resolved                            │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
 
-  Root cause: {description}
-  Fix applied: {files_changed}
-  Commit: {short_sha}
-  Verification: {pass|fail}
+  Next:
+    → /gtd-next   continue pipeline
+```
 
-  Next: /gtd-next (continue pipeline)
-        /gtd-debug (if issue persists)
+If fix failed:
+```
+  ✗ Debug unsuccessful (3 attempts)
+
+    Root cause identified: {description}
+    Attempted fixes did not resolve the error.
+
+  Next:
+    → /gtd-debug           try again with more context
+    → manual intervention  inspect {file_path}
 ```
 
 If fix failed after 3 attempts: report unresolved, suggest manual intervention.

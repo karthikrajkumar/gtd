@@ -1,6 +1,16 @@
 <purpose>
-Fast mode: skip research phase, go straight to planning. Like plan-phase but without spawning research agents. Uses existing knowledge only. Good for well-understood tasks where requirements are clear.
+Execute a trivial task inline with zero planning ceremony. User describes what they want,
+agent does it immediately, one atomic commit, done. For tasks that are too small to
+justify even a quick plan.
 </purpose>
+
+<required_reading>
+@references/output-style.md
+</required_reading>
+
+<available_agent_types>
+- gtd-fast-executor — Inline execution without planning
+</available_agent_types>
 
 <process>
 
@@ -8,57 +18,49 @@ Fast mode: skip research phase, go straight to planning. Like plan-phase but wit
 ```bash
 INIT=$(node "$GTD_TOOLS_PATH/gtd-tools.cjs" init fast "$ARGUMENTS")
 ```
-Parse: phase_number, docs_root, config, state, roadmap.
-Verify: phase exists in ROADMAP.md.
+Parse: docs_root, config, state, git, args.
+Extract task description from arguments.
 </step>
 
-<step name="skip_research">
-Mark research as skipped in state:
-```bash
-node "$GTD_TOOLS_PATH/gtd-tools.cjs" state update forward.status "research_skipped"
+<step name="validate_scope">
+If the task description implies:
+- More than ~10 files changing
+- Multiple independent features
+- Complex architectural decisions
+
+Then suggest /gtd-quick instead:
+```
+  ⚠ This looks bigger than a fast task.
+
+    Consider: /gtd-quick "{task}" (adds lightweight planning)
 ```
 
-Create a minimal CONTEXT.md for the phase noting research was skipped:
-```
-# Phase {N} Context
-Research: Skipped (fast mode)
-Using existing project knowledge only.
-```
+Otherwise, proceed.
 </step>
 
-<step name="plan">
-Proceed directly to planning using existing project docs:
-- Read PROJECT.md, REQUIREMENTS.md, ROADMAP.md
-- Generate plans based on phase requirements and existing codebase
-- Write plans to phases/{phase}/ directory
+<step name="execute">
+Spawn gtd-fast-executor with the task description.
+Agent reads relevant code, makes changes, verifies, and commits.
 
-This follows the same plan generation logic as plan-phase
-but without RESEARCH.md input.
-
-```bash
-node "$GTD_TOOLS_PATH/gtd-tools.cjs" state update forward.status "planned"
-node "$GTD_TOOLS_PATH/gtd-tools.cjs" state update forward.current_phase "$PHASE_NUMBER"
-```
-</step>
-
-<step name="display">
 Display:
 ```
-Fast-planned Phase {N}: {phase_name}
+  ◐ Executing: {task description}...
+```
+</step>
 
-  Research: skipped
-  Plans created: {count}
-  Tasks total: {task_count}
-
-  Next: /gtd-execute-phase {N} (execute plans)
-        /gtd-next (auto-advance)
+<step name="report">
+After executor completes, display (per references/output-style.md):
+```
+╭─ GTD ─────────────────────────────────────────────────────╮
+│                                                            │
+│  ✓ Done                                                   │
+│                                                            │
+│  Task         {description}                                │
+│  Commit       {sha} {message}                              │
+│  Files        {count} modified                             │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
 ```
 </step>
 
 </process>
-
-<error_handling>
-- Phase requirements unclear without research → warn user, suggest /gtd-discuss-phase instead
-- Missing PROJECT.md or REQUIREMENTS.md → error: "Project docs required. Run /gtd-new-project first."
-- Phase already planned → ask user whether to overwrite existing plans
-</error_handling>

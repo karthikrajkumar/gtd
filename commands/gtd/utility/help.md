@@ -10,52 +10,77 @@ tools:
 
 Get Things Done — Bidirectional spec-driven agentic framework.
 
-## Available Commands
+## Required Reading
+@references/output-style.md
 
-### Backward Pipeline (Code → Documents)
-| Command | Description |
-|---------|-------------|
-| `/gtd-scan` | Scan and map the codebase |
-| `/gtd-analyze` | Deep code analysis (6 dimensions) |
-| `/gtd-create-tdd` | Generate Technical Design Document |
-| `/gtd-create-hld` | Generate High-Level Design |
-| `/gtd-create-lld` | Generate Low-Level Design |
-| `/gtd-create-capacity` | Generate Capacity Plan |
-| `/gtd-create-sysdesign` | Generate System Design |
-| `/gtd-create-api-docs` | Generate API Documentation |
-| `/gtd-create-runbook` | Generate Operations Runbook |
-| `/gtd-create-all` | Generate full document suite |
-| `/gtd-verify-docs` | Verify document accuracy |
-| `/gtd-update-docs` | Incremental document update |
+## Display
 
-### Forward Pipeline (Idea → Code → Deploy)
-| Command | Description |
-|---------|-------------|
-| `/gtd-new-project` | Initialize from idea |
-| `/gtd-plan-phase N` | Research + plan phase |
-| `/gtd-execute-phase N` | Generate code |
-| `/gtd-deploy-local` | Deploy locally |
-| `/gtd-test-phase N` | Run tests |
-| `/gtd-ship` | Create PR |
+Render this using the Help & Command Lists format from output-style.md:
 
-### Sync (Bidirectional)
-| Command | Description |
-|---------|-------------|
-| `/gtd-drift` | Detect spec ↔ code drift |
-| `/gtd-sync` | Auto-reconcile |
-
-### Utility
-| Command | Description |
-|---------|-------------|
-| `/gtd-status` | Pipeline status dashboard |
-| `/gtd-settings` | Configuration |
-| `/gtd-help` | This help |
+```
+╭─ GTD Commands ────────────────────────────────────────────╮
+│                                                            │
+│  FORWARD >>>  (idea → code → deploy)                      │
+│                                                            │
+│    /gtd-new-project       initialize from idea             │
+│    /gtd-discuss-phase N   shape implementation decisions   │
+│    /gtd-plan-phase N      research + create plan           │
+│    /gtd-execute-phase N   generate code                    │
+│    /gtd-verify-work N     confirm it works                 │
+│    /gtd-ship N            create PR                        │
+│    /gtd-deploy-local      deploy and test locally          │
+│    /gtd-quick             ad-hoc task (no ceremony)        │
+│    /gtd-fast              trivial inline task              │
+│                                                            │
+│  BACKWARD <<<  (code → documents)                         │
+│                                                            │
+│    /gtd-scan              map codebase                     │
+│    /gtd-analyze           deep code analysis               │
+│    /gtd-create-tdd        Technical Design Document        │
+│    /gtd-create-hld        High-Level Design                │
+│    /gtd-create-lld        Low-Level Design                 │
+│    /gtd-create-sysdesign  System Design                    │
+│    /gtd-create-api-docs   API Documentation                │
+│    /gtd-create-runbook    Operations Runbook               │
+│    /gtd-create-capacity   Capacity Plan                    │
+│    /gtd-create-all        all 7 documents                  │
+│    /gtd-verify-docs       check accuracy                   │
+│    /gtd-update-docs       incremental update               │
+│                                                            │
+│  SYNC <><>  (keep aligned)                                │
+│                                                            │
+│    /gtd-drift             detect spec ↔ code drift         │
+│    /gtd-sync              auto-reconcile                   │
+│    /gtd-audit             full alignment audit             │
+│                                                            │
+│  SESSION                                                   │
+│                                                            │
+│    /gtd-pause             save session state               │
+│    /gtd-resume            restore session                  │
+│    /gtd-session-report    summarize this session           │
+│                                                            │
+│  UTILITY                                                   │
+│                                                            │
+│    /gtd-status            pipeline dashboard               │
+│    /gtd-scan              security scan                    │
+│    /gtd-ingest            import external docs             │
+│    /gtd-settings          configuration                    │
+│    /gtd-health            check installation               │
+│    /gtd-help              this menu                        │
+│                                                            │
+╰────────────────────────────────────────────────────────────╯
+```
 
 ## What to do next
 
 Check the pipeline state:
 ```bash
-node gtd-tools.cjs state pipeline
+STATE=$(node "$GTD_TOOLS_PATH/gtd-tools.cjs" state pipeline)
 ```
 
-Based on the state, recommend the appropriate next command.
+Based on the state, recommend the appropriate next command using the `→` arrow format:
+
+```
+  Based on your project state:
+    → {command}   {why this is the right next step}
+```

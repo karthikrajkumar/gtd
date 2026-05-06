@@ -5,6 +5,25 @@ All notable changes to Get Things Done (GTD) will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.14.0] - 2026-05-06
+
+### Added
+
+- **Session Management** — `/gtd-pause`, `/gtd-resume`, `/gtd-session-report` commands with `HANDOFF.json` serialization for seamless context-window handoffs
+- **Quick & Fast Modes** — `/gtd-quick` (ad-hoc tasks with composable --discuss/--research/--validate flags) and `/gtd-fast` (trivial inline tasks, zero ceremony, one commit)
+- **Ship & PR Workflow** — `/gtd-ship` command auto-generates PR title/body from phase artifacts, supports --draft, handles branch push
+- **Security Scan** — `/gtd-scan` command for detecting hardcoded secrets and sensitive files (leverages existing security lib)
+- **Document Ingest** — `/gtd-ingest` command imports external files/URLs into `.planning/ingested/` with manifest tracking
+- **Model Profiles** — `references/model-profiles.md` defines Tier 1 (fast), Tier 2 (balanced), Tier 3 (power) with token budgets and agent mappings
+- New agents: `gtd-session-manager`, `gtd-quick-planner`, `gtd-fast-executor`, `gtd-pr-creator`
+- New lib modules: `session.cjs`, `session-cli.cjs`, `ingest.cjs`, `ingest-cli.cjs`, `pr-builder.cjs`
+
+### Changed
+
+- Installer now includes `agents/utility`, `commands/gtd/session`, `workflows/session`, and `lib` directories
+- CLI (`gtd-tools.cjs`) registers `session` and `ingest` subcommands
+- `/gtd-help` updated with Session section and new utility commands (scan, ingest, session-report)
+
 ## [1.13.0] - 2026-05-06
 
 ### Changed
