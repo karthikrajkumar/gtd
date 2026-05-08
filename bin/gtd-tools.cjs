@@ -48,6 +48,7 @@ const COMMANDS = {
   security: () => require('../lib/security.cjs'),
   session: () => require('../lib/session-cli.cjs'),
   ingest: () => require('../lib/ingest-cli.cjs'),
+  backlog: () => require('../lib/backlog-cli.cjs'),
   scale: () => require('../lib/scale-adapter.cjs'),
   'git-handover': () => require('../lib/git-handover.cjs'),
   version: () => {

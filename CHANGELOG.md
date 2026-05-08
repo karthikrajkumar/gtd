@@ -5,6 +5,25 @@ All notable changes to Get Things Done (GTD) will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.15.0] - 2026-05-08
+
+### Added
+
+- **Spike & Sketch** — `/gtd-spike` runs time-boxed technical experiments with Given/When/Then verdicts; `/gtd-sketch` creates self-contained HTML mockups for rapid visual feedback; wrap-up commands feed results into planning
+- **UI Design Pipeline** — `/gtd-ui-phase` generates detailed UI specs (component hierarchy, state, accessibility, responsive breakpoints); `/gtd-ui-review` audits implementation against spec
+- **Observability** — `/gtd-stats` shows project-wide metrics dashboard; `/gtd-forensics` investigates project history with evidence-backed timelines; `/gtd-audit-uat` checks user acceptance criteria; `/gtd-audit-milestone` runs full milestone health check; `/gtd-milestone-summary` generates stakeholder summaries
+- **Backlog & Threads** — `/gtd-add-backlog`, `/gtd-review-backlog`, `/gtd-plant-seed` for task/idea management; `/gtd-thread` for persistent context threads that accumulate knowledge across sessions
+- **Workstreams** — `/gtd-workstreams` manages parallel tracks of work (create, switch, status)
+- **Branching Strategies** — `references/branching-strategies.md` documents `none`/`phase`/`milestone` git strategies with full configuration reference
+- New agents: `gtd-spike-runner`, `gtd-sketch-designer`, `gtd-ui-spec-writer`, `gtd-ui-reviewer`, `gtd-forensics-investigator`
+- New lib modules: `backlog.cjs`, `backlog-cli.cjs`
+
+### Changed
+
+- Installer now includes `commands/gtd/backlog` and `workflows/utility` directories
+- CLI (`gtd-tools.cjs`) registers `backlog` subcommand
+- `/gtd-help` expanded with Spike/Sketch, UI, Observability, Backlog, and Workstreams sections
+
 ## [1.14.0] - 2026-05-06
 
 ### Added

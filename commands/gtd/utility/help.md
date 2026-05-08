@@ -31,6 +31,13 @@ Render this using the Help & Command Lists format from output-style.md:
 │    /gtd-deploy-local      deploy and test locally          │
 │    /gtd-quick             ad-hoc task (no ceremony)        │
 │    /gtd-fast              trivial inline task              │
+│    /gtd-spike             technical experiment             │
+│    /gtd-sketch            rapid UI mockup                  │
+│    /gtd-ui-phase N        generate UI spec                 │
+│    /gtd-ui-review N       review UI implementation         │
+│    /gtd-audit-uat N       user acceptance check            │
+│    /gtd-audit-milestone   full milestone audit             │
+│    /gtd-workstreams       manage parallel tracks           │
 │                                                            │
 │  BACKWARD <<<  (code → documents)                         │
 │                                                            │
@@ -58,10 +65,19 @@ Render this using the Help & Command Lists format from output-style.md:
 │    /gtd-pause             save session state               │
 │    /gtd-resume            restore session                  │
 │    /gtd-session-report    summarize this session           │
+│    /gtd-thread            persistent context threads       │
+│                                                            │
+│  BACKLOG                                                   │
+│                                                            │
+│    /gtd-add-backlog       add task/feature/bug             │
+│    /gtd-review-backlog    view and filter backlog          │
+│    /gtd-plant-seed        plant future idea                │
 │                                                            │
 │  UTILITY                                                   │
 │                                                            │
 │    /gtd-status            pipeline dashboard               │
+│    /gtd-stats             project statistics               │
+│    /gtd-forensics         investigate history              │
 │    /gtd-scan              security scan                    │
 │    /gtd-ingest            import external docs             │
 │    /gtd-settings          configuration                    │
